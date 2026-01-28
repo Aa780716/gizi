@@ -23,10 +23,12 @@ function calculateBMI() {
 
     let status = "";
 
-    if (bmi < 18.5) status = "Kurus";
-    else if (bmi < 25) status = "Normal";
-    else if (bmi < 30) status = "Gemuk";
-    else status = "Obesitas";
+if (bmi < 18.5) status = "Underweight";
+else if (bmi < 23) status = "Normal";
+else if (bmi < 25) status = "Overweight";
+else if (bmi < 30) status = "Obesitas I";
+else status = "Obesitas II";
+
 
     document.getElementById("result").style.display = "block";
 
@@ -130,63 +132,90 @@ function drawChart(bmi) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 
-    const ranges = [
-        { label: "Kurus", max: 18.5, color: "#00bcd4" },
-        { label: "Normal", max: 25, color: "#4caf50" },
-        { label: "Gemuk", max: 30, color: "#ffb300" },
-        { label: "Obesitas", max: 40, color: "#f44336" }
+    // Batas IMT Asia
+    const limits = [0, 18.5, 23, 25, 30, 40];
+
+    const labels = [
+        "Underweight",
+        "Normal",
+        "Overweight",
+        "Obesitas I",
+        "Obesitas II"
     ];
 
-    const barWidth = 120;
+    const colors = [
+        "#03a9f4",
+        "#4caf50",
+        "#ffc107",
+        "#ff9800",
+        "#f44336"
+    ];
+
+
+    const barWidth = 95;
+    const barHeight = 60;
     const baseY = 160;
-    const startX = 40;
+    const startX = 20;
 
 
-    ranges.forEach((r, i) => {
+    // Gambar bar
+    for(let i = 0; i < 5; i++){
 
-        ctx.fillStyle = r.color;
+        ctx.fillStyle = colors[i];
 
         ctx.fillRect(
-            startX + i * (barWidth + 10),
-            baseY - 60,
+            startX + i * (barWidth + 8),
+            baseY - barHeight,
             barWidth,
-            60
+            barHeight
         );
 
         ctx.fillStyle = "#000";
+        ctx.font = "12px Arial";
         ctx.textAlign = "center";
-        ctx.font = "14px Arial";
 
         ctx.fillText(
-            r.label,
-            startX + i * (barWidth + 10) + barWidth / 2,
+            labels[i],
+            startX + i * (barWidth + 8) + barWidth / 2,
             baseY + 20
         );
-    });
+    }
 
 
-    const maxBMI = 40;
-    const totalWidth = barWidth * ranges.length + 30;
+    // Hitung posisi panah
+    let posX = startX;
 
-    const pos = Math.min(bmi, maxBMI) / maxBMI * totalWidth;
+    if (bmi < 18.5) {
+        posX += (bmi / 18.5) * barWidth;
+    }
+    else if (bmi < 23) {
+        posX += (barWidth + 8) + ((bmi - 18.5) / (23 - 18.5)) * barWidth;
+    }
+    else if (bmi < 25) {
+        posX += 2 * (barWidth + 8) + ((bmi - 23) / (25 - 23)) * barWidth;
+    }
+    else if (bmi < 30) {
+        posX += 3 * (barWidth + 8) + ((bmi - 25) / (30 - 25)) * barWidth;
+    }
+    else {
+        posX += 4 * (barWidth + 8) + ((bmi - 30) / (40 - 30)) * barWidth;
+    }
 
 
+    // Panah
     ctx.fillStyle = "#0b5c9e";
 
     ctx.beginPath();
-    ctx.moveTo(startX + pos, baseY - 80);
-    ctx.lineTo(startX + pos - 7, baseY - 60);
-    ctx.lineTo(startX + pos + 7, baseY - 60);
+    ctx.moveTo(posX, baseY - 80);
+    ctx.lineTo(posX - 6, baseY - 60);
+    ctx.lineTo(posX + 6, baseY - 60);
     ctx.closePath();
     ctx.fill();
 
 
-    ctx.font = "13px Arial";
+    // Teks
+    ctx.font = "12px Arial";
     ctx.textAlign = "center";
 
-    ctx.fillText(
-        "IMT Anda",
-        startX + pos,
-        baseY - 90
-    );
+    ctx.fillText("IMT Anda", posX, baseY - 90);
 }
