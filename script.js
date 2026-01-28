@@ -11,6 +11,13 @@ function calculateBMI() {
         return;
     }
 
+    // Auto isi ke form Gizi
+    document.getElementById("gizi_age").value = age;
+    document.getElementById("gizi_weight").value = weight;
+    document.getElementById("gizi_height").value = heightCm;
+
+
+    // Hitung IMT
     const heightM = heightCm / 100;
     const bmi = weight / (heightM * heightM);
 
@@ -43,16 +50,16 @@ function calculateGizi() {
     const trimester = parseInt(document.getElementById("trimester").value);
 
     if (!age || !weight || !height) {
-        alert("Lengkapi data Gizi!");
+        alert("Hitung IMT dulu!");
         return;
     }
 
-    // ===== ENERGI DASAR =====
+    // Energi dasar
     let energi = 655 + (9.6 * weight) + (1.8 * height) - (4.7 * age);
     energi *= 1.2;
 
 
-    // ===== TAMBAHAN TRIMESTER =====
+    // Tambahan trimester
     let addE = 0;
     let addP = 0;
     let addL = 0;
@@ -78,28 +85,23 @@ function calculateGizi() {
     }
 
 
-    // ===== TOTAL ENERGI =====
     energi += addE;
 
 
-    // ===== HITUNG ZAT GIZI =====
+    // Hitung zat gizi
     let protein = (0.15 * energi) / 4 + addP;
     let lemak   = (0.25 * energi) / 9 + addL;
     let karbo   = (0.60 * energi) / 4 + addK;
 
 
-    // ===== OUTPUT =====
     document.getElementById("giziResult").style.display = "block";
 
     document.getElementById("giziResult").innerHTML = `
         <h3>Hasil Gizi</h3>
 
         <p><b>Energi:</b> ${energi.toFixed(0)} kkal / hari</p>
-
         <p><b>Protein:</b> ${protein.toFixed(1)} gram</p>
-
         <p><b>Lemak:</b> ${lemak.toFixed(1)} gram</p>
-
         <p><b>Karbohidrat:</b> ${karbo.toFixed(1)} gram</p>
 
         <hr>
@@ -120,25 +122,19 @@ function calculateGizi() {
 function drawChart(bmi) {
 
     const canvas = document.getElementById("bmiChart");
-
-    // Cegah error kalau canvas tidak ketemu
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
 
-    // Tampilkan canvas
     canvas.style.display = "block";
-
-    // Bersihkan canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 
-    // Data range IMT + warna
     const ranges = [
-        { label: "Kurus", max: 18.5, color: "#00bcd4" },   // Biru
-        { label: "Normal", max: 25, color: "#4caf50" },   // Hijau
-        { label: "Gemuk", max: 30, color: "#ffb300" },    // Kuning
-        { label: "Obesitas", max: 40, color: "#f44336" }  // Merah
+        { label: "Kurus", max: 18.5, color: "#00bcd4" },
+        { label: "Normal", max: 25, color: "#4caf50" },
+        { label: "Gemuk", max: 30, color: "#ffb300" },
+        { label: "Obesitas", max: 40, color: "#f44336" }
     ];
 
     const barWidth = 120;
@@ -146,10 +142,7 @@ function drawChart(bmi) {
     const startX = 40;
 
 
-    // Gambar bar warna
-    for (let i = 0; i < ranges.length; i++) {
-
-        const r = ranges[i];
+    ranges.forEach((r, i) => {
 
         ctx.fillStyle = r.color;
 
@@ -160,27 +153,24 @@ function drawChart(bmi) {
             60
         );
 
-        // Label
         ctx.fillStyle = "#000";
-        ctx.font = "14px Arial";
         ctx.textAlign = "center";
+        ctx.font = "14px Arial";
 
         ctx.fillText(
             r.label,
             startX + i * (barWidth + 10) + barWidth / 2,
             baseY + 20
         );
-    }
+    });
 
 
-    // Hitung posisi panah
     const maxBMI = 40;
     const totalWidth = barWidth * ranges.length + 30;
 
     const pos = Math.min(bmi, maxBMI) / maxBMI * totalWidth;
 
 
-    // Gambar panah penunjuk
     ctx.fillStyle = "#0b5c9e";
 
     ctx.beginPath();
@@ -191,7 +181,6 @@ function drawChart(bmi) {
     ctx.fill();
 
 
-    // Teks IMT
     ctx.font = "13px Arial";
     ctx.textAlign = "center";
 
