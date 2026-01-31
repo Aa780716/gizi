@@ -1,113 +1,253 @@
-* {
-    box-sizing: border-box;
+/* ================= RESET ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(135deg, #e8f2fb, #f7fbff);
-    padding: 30px;
+/* ================= BODY ================= */
+body{
+    background:#fff0f5;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
 }
 
-.wrapper {
-    max-width: 900px;
-    margin: auto;
+
+/* ================= CONTAINER ================= */
+.container,
+.wrapper{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+    width:100%;
 }
 
-h1 {
-    text-align: center;
-    color: #0b5c9e;
-    margin-bottom: 25px;
+
+/* ================= TITLE ================= */
+h1{
+    text-align:center;
+    color:#d81b60;
+    margin-bottom:20px;
 }
 
-.card {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+h2{
+    color:#c2185b;
+    margin-bottom:15px;
+    text-align:center;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 22px;
+
+/* ================= CARD ================= */
+.card{
+    background:white;
+    border-radius:12px;
+    padding:25px;
+    margin-bottom:30px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
-label {
-    font-weight: 600;
-    color: #0b5c9e;
-    margin-bottom: 6px;
-    display: block;
+
+/* ================= GRID FORM ================= */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
 }
 
-input, select {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 12px;
-    border: 1px solid #d0dce8;
-    background: #f9fcff;
-    font-size: 15px;
+
+/* ================= FORM ================= */
+label{
+    font-weight:bold;
+    color:#880e4f;
+    display:block;
+    margin-bottom:5px;
 }
 
-input:focus, select:focus {
-    outline: none;
-    border-color: #1b6ea8;
-    box-shadow: 0 0 0 3px rgba(27,110,168,0.15);
+input,
+select{
+    width:100%;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #f48fb1;
+    outline:none;
 }
 
-button {
-    margin-top: 30px;
-    padding: 15px;
-    width: 100%;
-    background: linear-gradient(135deg, #1b6ea8, #0b5c9e);
-    color: #fff;
-    border: none;
-    border-radius: 14px;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
+input:focus,
+select:focus{
+    border-color:#ec407a;
+    box-shadow:0 0 3px #f06292;
 }
 
-button:hover {
-    box-shadow: 0 8px 20px rgba(27,110,168,0.35);
+
+/* ================= BUTTON ================= */
+button{
+    background:#ec407a;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:20px;
+    font-size:14px;
+    transition:0.3s;
 }
 
-.result {
-    margin-top: 30px;
-    background: #f8fbff;
-    padding: 25px;
-    border-radius: 16px;
-    border-left: 6px solid #1b6ea8;
+button:hover{
+    background:#d81b60;
 }
 
-.badge {
-    display: inline-block;
-    padding: 8px 18px;
-    border-radius: 30px;
-    color: #fff;
-    font-weight: bold;
-    margin-top: 10px;
+
+/* ================= RESULT ================= */
+.result,
+.hasil{
+    background:#fce4ec;
+    padding:15px;
+    border-radius:8px;
+    margin-top:20px;
+    border-left:5px solid #ec407a;
 }
 
-.normal { background: #4caf50; }
-.over { background: #ffb300; color:#000; }
-.obese { background: #f44336; }
-.low { background: #00bcd4; }
 
-.small {
-    margin-top: 12px;
-    font-size: 14px;
-    color: #555;
+/* ================= TABLE ================= */
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
 }
 
-canvas {
-    margin-top: 25px;
-    background: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+th,
+td{
+    padding:10px;
+    border:1px solid #f48fb1;
+    text-align:center;
+    font-size:14px;
 }
 
-@media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr;
+th{
+    background:#f06292;
+    color:white;
+}
+
+tr:nth-child(even){
+    background:#fde4ec;
+}
+
+
+/* ================= SEARCH ================= */
+#searchInput{
+    width:100%;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #f48fb1;
+    margin-bottom:15px;
+}
+
+
+/* ================= RESET BUTTON ================= */
+.reset-btn{
+    background:#e53935;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.reset-btn:hover{
+    background:#c62828;
+}
+
+
+/* ================= CANVAS ================= */
+canvas{
+    max-width:100%;
+    margin-top:20px;
+}
+
+
+/* ================= FOOTER ================= */
+.copyright{
+    width:100%;
+    text-align:center;
+    color:#9e9e9e;
+    font-size:13px;
+    padding:20px 10px;
+    background:#ffffff;
+    border-top:1px solid #eee;
+    line-height:1.6;
+
+    margin-top:auto; /* KUNCI FOOTER DI BAWAH */
+}
+
+
+/* ================= MOBILE ================= */
+@media (max-width:768px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    h1{
+        font-size:22px;
+    }
+
+    h2{
+        font-size:18px;
+    }
+
+    button{
+        width:100%;
+    }
+
+    table{
+        font-size:12px;
+    }
+
+}
+
+
+/* ================= SMALL PHONE ================= */
+@media (max-width:480px){
+
+    body{
+        font-size:13px;
+    }
+
+    .card{
+        padding:15px;
+    }
+
+    input,
+    select{
+        padding:8px;
+    }
+
+    .copyright{
+        font-size:12px;
+        padding:15px 8px;
+    }
+
+}
+
+
+/* ================= COPYRIGHT ================= */
+
+.copyright{
+    text-align:center;
+    color:#9e9e9e;
+    font-size:13px;
+    padding:25px 10px;
+    background:#ffffff;
+    border-top:1px solid #eee;
+    margin-top:40px;
+    line-height:1.6;
+}
+
+/* Mobile */
+@media(max-width:768px){
+    .copyright{
+        font-size:12px;
     }
 }
